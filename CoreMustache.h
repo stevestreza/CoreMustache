@@ -1,5 +1,5 @@
 /*
- *  MW.h
+ *  CoreMustache.h
  *
  *  Created by Steve Streza on 1/8/2011.
  *  Copyright 2011 Mustacheware. All rights reserved.
@@ -14,28 +14,26 @@
  instead of the normal macros in case Apple changes them in the future.
  
  MWMacTarget - code that runs on Mac platforms, and not iPhone
- - MWMacLeopardTarget - code that runs on Leopard or higher machines
- - MWMacTigerTarget   - code that runs on Tiger or higher machines
  MWiPhoneTarget - code that runs on the iPhone device and simulator, not on the Mac
  - MWiPhoneDeviceTarget - code that runs on the device, not the simulator
  - MWiPhoneSimulatorTarget - code that runs on the simulator, not the device
  */
 
-#ifdef MAC_OS_X_VERSION_10_0
-	#ifdef MAC_OS_X_VERSION_10_5
-		#define MWMacLeopardTarget 1
-	#elif MAC_OS_X_VERSION_10_4
-		#define MWMacTigerTarget 1
-	#endif
-	#define MWMacTarget 1
+#if TARGET_IPHONE_SIMULATOR
+#define MWMacTarget 0
+#define MWiPhoneTarget 1
+#define MWiPhoneSimulatorTarget 1
+#define TargetIsMobileDevice 1
+#elif TARGET_OS_IPHONE
+#define MWMacTarget 0
+#define MWiPhoneTarget 1
+#define MWiPhoneSimulatorTarget 0
+#define TargetIsMobileDevice 1
 #else
-	#if TARGET_OS_IPHONE
-		#define MWiPhoneDeviceTarget 1
-		#define MWiPhoneTarget 1
-	#elif TARGET_IPHONE_SIMULATOR
-		#define MWiPhoneSimulatorTarget 1
-		#define MWiPhoneTarget 1
-	#endif
+#define MWMacTarget 1
+#define MWiPhoneTarget 0
+#define MWiPhoneSimulatorTarget 0
+#define TargetIsMobileDevice 0
 #endif
 
 
